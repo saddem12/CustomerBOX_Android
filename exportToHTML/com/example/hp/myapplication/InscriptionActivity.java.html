@@ -1,0 +1,306 @@
+<html>
+<head>
+<title>InscriptionActivity.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.ln { color: #606366; font-weight: normal; font-style: normal; }
+.s0 { color: rgb(204,120,50); }
+.s1 { color: rgb(169,183,198); }
+.s2 { color: rgb(106,135,89); }
+.s3 { color: rgb(128,128,128); }
+.s4 { color: rgb(104,151,187); }
+</style>
+</head>
+<BODY BGCOLOR="#2b2b2b">
+<TABLE CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<TR><TD><CENTER>
+<FONT FACE="Arial, Helvetica" COLOR="#000000">
+InscriptionActivity.java</FONT>
+</center></TD></TR></TABLE>
+<pre>
+<a name="l1"><span class="ln">1    </span></a><span class="s0">package </span><span class="s1">com.example.hp.myapplication</span><span class="s0">;</span><span class="s1"> 
+<a name="l2"><span class="ln">2    </span></a> 
+<a name="l3"><span class="ln">3    </span></a></span><span class="s0">import </span><span class="s1">android.app.ProgressDialog</span><span class="s0">;</span><span class="s1"> 
+<a name="l4"><span class="ln">4    </span></a></span><span class="s0">import </span><span class="s1">android.content.Intent</span><span class="s0">;</span><span class="s1"> 
+<a name="l5"><span class="ln">5    </span></a></span><span class="s0">import </span><span class="s1">android.support.v7.app.AppCompatActivity</span><span class="s0">;</span><span class="s1"> 
+<a name="l6"><span class="ln">6    </span></a></span><span class="s0">import </span><span class="s1">android.os.Bundle</span><span class="s0">;</span><span class="s1"> 
+<a name="l7"><span class="ln">7    </span></a></span><span class="s0">import </span><span class="s1">android.text.TextUtils</span><span class="s0">;</span><span class="s1"> 
+<a name="l8"><span class="ln">8    </span></a></span><span class="s0">import </span><span class="s1">android.util.Log</span><span class="s0">;</span><span class="s1"> 
+<a name="l9"><span class="ln">9    </span></a></span><span class="s0">import </span><span class="s1">android.view.View</span><span class="s0">;</span><span class="s1"> 
+<a name="l10"><span class="ln">10   </span></a></span><span class="s0">import </span><span class="s1">android.widget.AdapterView</span><span class="s0">;</span><span class="s1"> 
+<a name="l11"><span class="ln">11   </span></a></span><span class="s0">import </span><span class="s1">android.widget.ArrayAdapter</span><span class="s0">;</span><span class="s1"> 
+<a name="l12"><span class="ln">12   </span></a></span><span class="s0">import </span><span class="s1">android.widget.Button</span><span class="s0">;</span><span class="s1"> 
+<a name="l13"><span class="ln">13   </span></a></span><span class="s0">import </span><span class="s1">android.widget.EditText</span><span class="s0">;</span><span class="s1"> 
+<a name="l14"><span class="ln">14   </span></a></span><span class="s0">import </span><span class="s1">android.widget.Spinner</span><span class="s0">;</span><span class="s1"> 
+<a name="l15"><span class="ln">15   </span></a></span><span class="s0">import </span><span class="s1">android.widget.Toast</span><span class="s0">;</span><span class="s1"> 
+<a name="l16"><span class="ln">16   </span></a> 
+<a name="l17"><span class="ln">17   </span></a></span><span class="s0">import </span><span class="s1">com.android.volley.NetworkError</span><span class="s0">;</span><span class="s1"> 
+<a name="l18"><span class="ln">18   </span></a></span><span class="s0">import </span><span class="s1">com.android.volley.RequestQueue</span><span class="s0">;</span><span class="s1"> 
+<a name="l19"><span class="ln">19   </span></a></span><span class="s0">import </span><span class="s1">com.android.volley.Response</span><span class="s0">;</span><span class="s1"> 
+<a name="l20"><span class="ln">20   </span></a></span><span class="s0">import </span><span class="s1">com.android.volley.ServerError</span><span class="s0">;</span><span class="s1"> 
+<a name="l21"><span class="ln">21   </span></a></span><span class="s0">import </span><span class="s1">com.android.volley.TimeoutError</span><span class="s0">;</span><span class="s1"> 
+<a name="l22"><span class="ln">22   </span></a></span><span class="s0">import </span><span class="s1">com.android.volley.VolleyError</span><span class="s0">;</span><span class="s1"> 
+<a name="l23"><span class="ln">23   </span></a></span><span class="s0">import </span><span class="s1">com.android.volley.toolbox.Volley</span><span class="s0">;</span><span class="s1"> 
+<a name="l24"><span class="ln">24   </span></a></span><span class="s0">import </span><span class="s1">com.example.hp.myapplication.Request.AgencesRequest</span><span class="s0">;</span><span class="s1"> 
+<a name="l25"><span class="ln">25   </span></a></span><span class="s0">import </span><span class="s1">com.example.hp.myapplication.Request.InscriptionRequest</span><span class="s0">;</span><span class="s1"> 
+<a name="l26"><span class="ln">26   </span></a> 
+<a name="l27"><span class="ln">27   </span></a></span><span class="s0">import </span><span class="s1">org.json.JSONArray</span><span class="s0">;</span><span class="s1"> 
+<a name="l28"><span class="ln">28   </span></a></span><span class="s0">import </span><span class="s1">org.json.JSONException</span><span class="s0">;</span><span class="s1"> 
+<a name="l29"><span class="ln">29   </span></a></span><span class="s0">import </span><span class="s1">org.json.JSONObject</span><span class="s0">;</span><span class="s1"> 
+<a name="l30"><span class="ln">30   </span></a> 
+<a name="l31"><span class="ln">31   </span></a></span><span class="s0">import </span><span class="s1">java.util.ArrayList</span><span class="s0">;</span><span class="s1"> 
+<a name="l32"><span class="ln">32   </span></a></span><span class="s0">import </span><span class="s1">java.util.List</span><span class="s0">;</span><span class="s1"> 
+<a name="l33"><span class="ln">33   </span></a> 
+<a name="l34"><span class="ln">34   </span></a></span><span class="s0">public class </span><span class="s1">InscriptionActivity </span><span class="s0">extends </span><span class="s1">AppCompatActivity { 
+<a name="l35"><span class="ln">35   </span></a> 
+<a name="l36"><span class="ln">36   </span></a>    String firstname</span><span class="s0">, </span><span class="s1">lastname</span><span class="s0">, </span><span class="s1">email</span><span class="s0">, </span><span class="s1">password</span><span class="s0">, </span><span class="s1">confirmpassword</span><span class="s0">, </span><span class="s1">region</span><span class="s0">, </span><span class="s1">idAG</span><span class="s0">;</span><span class="s1"> 
+<a name="l37"><span class="ln">37   </span></a> 
+<a name="l38"><span class="ln">38   </span></a>    EditText fname</span><span class="s0">, </span><span class="s1">lname</span><span class="s0">, </span><span class="s1">mail</span><span class="s0">, </span><span class="s1">pass</span><span class="s0">, </span><span class="s1">confpass</span><span class="s0">;</span><span class="s1"> 
+<a name="l39"><span class="ln">39   </span></a>    Button ok</span><span class="s0">, </span><span class="s1">cancel</span><span class="s0">;</span><span class="s1"> 
+<a name="l40"><span class="ln">40   </span></a>    Spinner regSpinner</span><span class="s0">, </span><span class="s1">agenceSpinner</span><span class="s0">;</span><span class="s1"> 
+<a name="l41"><span class="ln">41   </span></a>    List&lt;String&gt; regionList</span><span class="s0">;</span><span class="s1"> 
+<a name="l42"><span class="ln">42   </span></a>    Session session</span><span class="s0">;</span><span class="s1"> 
+<a name="l43"><span class="ln">43   </span></a>    ArrayList&lt;String&gt; agencesAdList</span><span class="s0">,</span><span class="s1">agencesIdList</span><span class="s0">;</span><span class="s1"> 
+<a name="l44"><span class="ln">44   </span></a>    JSONArray agences = </span><span class="s0">null;</span><span class="s1"> 
+<a name="l45"><span class="ln">45   </span></a> 
+<a name="l46"><span class="ln">46   </span></a> 
+<a name="l47"><span class="ln">47   </span></a>    RequestQueue requestQueue</span><span class="s0">;</span><span class="s1"> 
+<a name="l48"><span class="ln">48   </span></a>    </span><span class="s0">int </span><span class="s1">success</span><span class="s0">;</span><span class="s1"> 
+<a name="l49"><span class="ln">49   </span></a> 
+<a name="l50"><span class="ln">50   </span></a>    @Override 
+<a name="l51"><span class="ln">51   </span></a>    </span><span class="s0">protected void </span><span class="s1">onCreate(Bundle savedInstanceState) { 
+<a name="l52"><span class="ln">52   </span></a>        </span><span class="s0">super</span><span class="s1">.onCreate(savedInstanceState)</span><span class="s0">;</span><span class="s1"> 
+<a name="l53"><span class="ln">53   </span></a>        setContentView(R.layout.activity_inscription)</span><span class="s0">;</span><span class="s1"> 
+<a name="l54"><span class="ln">54   </span></a> 
+<a name="l55"><span class="ln">55   </span></a>        session = </span><span class="s0">new </span><span class="s1">Session(</span><span class="s0">this</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+<a name="l56"><span class="ln">56   </span></a> 
+<a name="l57"><span class="ln">57   </span></a>        fname = (EditText) findViewById(R.id.fname)</span><span class="s0">;</span><span class="s1"> 
+<a name="l58"><span class="ln">58   </span></a>        lname = (EditText) findViewById(R.id.lname)</span><span class="s0">;</span><span class="s1"> 
+<a name="l59"><span class="ln">59   </span></a>        mail = (EditText) findViewById(R.id.mail)</span><span class="s0">;</span><span class="s1"> 
+<a name="l60"><span class="ln">60   </span></a>        pass = (EditText) findViewById(R.id.pass)</span><span class="s0">;</span><span class="s1"> 
+<a name="l61"><span class="ln">61   </span></a>        confpass = (EditText) findViewById(R.id.confpass)</span><span class="s0">;</span><span class="s1"> 
+<a name="l62"><span class="ln">62   </span></a> 
+<a name="l63"><span class="ln">63   </span></a>        regSpinner = (Spinner) findViewById(R.id.reg)</span><span class="s0">;</span><span class="s1"> 
+<a name="l64"><span class="ln">64   </span></a>        agenceSpinner = (Spinner) findViewById(R.id.agence)</span><span class="s0">;</span><span class="s1"> 
+<a name="l65"><span class="ln">65   </span></a> 
+<a name="l66"><span class="ln">66   </span></a>        cancel = (Button) findViewById(R.id.cancel)</span><span class="s0">;</span><span class="s1"> 
+<a name="l67"><span class="ln">67   </span></a>        ok = (Button) findViewById(R.id.ok)</span><span class="s0">;</span><span class="s1"> 
+<a name="l68"><span class="ln">68   </span></a> 
+<a name="l69"><span class="ln">69   </span></a>        regionList = </span><span class="s0">new </span><span class="s1">ArrayList&lt;String&gt;()</span><span class="s0">;</span><span class="s1"> 
+<a name="l70"><span class="ln">70   </span></a> 
+<a name="l71"><span class="ln">71   </span></a>        regionList.add(</span><span class="s2">&quot;Select your region&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+<a name="l72"><span class="ln">72   </span></a>        regionList.add(</span><span class="s2">&quot;Ariana&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+<a name="l73"><span class="ln">73   </span></a>        regionList.add(</span><span class="s2">&quot;Baja&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+<a name="l74"><span class="ln">74   </span></a>        regionList.add(</span><span class="s2">&quot;Ben Arous&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+<a name="l75"><span class="ln">75   </span></a>        regionList.add(</span><span class="s2">&quot;Bizerte&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+<a name="l76"><span class="ln">76   </span></a>        regionList.add(</span><span class="s2">&quot;Gabès&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+<a name="l77"><span class="ln">77   </span></a>        regionList.add(</span><span class="s2">&quot;Gafsa&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+<a name="l78"><span class="ln">78   </span></a>        regionList.add(</span><span class="s2">&quot;Jendouba&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+<a name="l79"><span class="ln">79   </span></a>        regionList.add(</span><span class="s2">&quot;Kairouan&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+<a name="l80"><span class="ln">80   </span></a>        regionList.add(</span><span class="s2">&quot;Kasserine&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+<a name="l81"><span class="ln">81   </span></a>        regionList.add(</span><span class="s2">&quot;Kebili&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+<a name="l82"><span class="ln">82   </span></a>        regionList.add(</span><span class="s2">&quot;Kef&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+<a name="l83"><span class="ln">83   </span></a>        regionList.add(</span><span class="s2">&quot;Mahdia&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+<a name="l84"><span class="ln">84   </span></a>        regionList.add(</span><span class="s2">&quot;Manouba&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+<a name="l85"><span class="ln">85   </span></a>        regionList.add(</span><span class="s2">&quot;Medenine&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+<a name="l86"><span class="ln">86   </span></a>        regionList.add(</span><span class="s2">&quot;Monastir&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+<a name="l87"><span class="ln">87   </span></a>        regionList.add(</span><span class="s2">&quot;Nabeul&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+<a name="l88"><span class="ln">88   </span></a>        regionList.add(</span><span class="s2">&quot;Sfax&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+<a name="l89"><span class="ln">89   </span></a>        regionList.add(</span><span class="s2">&quot;Sidi Bouzid&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+<a name="l90"><span class="ln">90   </span></a>        regionList.add(</span><span class="s2">&quot;Siliana&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+<a name="l91"><span class="ln">91   </span></a>        regionList.add(</span><span class="s2">&quot;Sousse&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+<a name="l92"><span class="ln">92   </span></a>        regionList.add(</span><span class="s2">&quot;Tataouine&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+<a name="l93"><span class="ln">93   </span></a>        regionList.add(</span><span class="s2">&quot;Tozeur&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+<a name="l94"><span class="ln">94   </span></a>        regionList.add(</span><span class="s2">&quot;Tunis&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+<a name="l95"><span class="ln">95   </span></a>        regionList.add(</span><span class="s2">&quot;Zaghouan&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+<a name="l96"><span class="ln">96   </span></a> 
+<a name="l97"><span class="ln">97   </span></a> 
+<a name="l98"><span class="ln">98   </span></a>        requestQueue = Volley.newRequestQueue(InscriptionActivity.</span><span class="s0">this</span><span class="s1">)</span><span class="s0">;</span><span class="s3">//Creating the RequestQueue</span><span class="s1"> 
+<a name="l99"><span class="ln">99   </span></a> 
+<a name="l100"><span class="ln">100  </span></a>        ArrayAdapter&lt;String&gt; dataAdapter = </span><span class="s0">new </span><span class="s1">ArrayAdapter&lt;String&gt;(</span><span class="s0">this, </span><span class="s1">android.R.layout.simple_spinner_item</span><span class="s0">, </span><span class="s1">regionList)</span><span class="s0">;</span><span class="s1"> 
+<a name="l101"><span class="ln">101  </span></a>        regSpinner.setAdapter(dataAdapter)</span><span class="s0">;</span><span class="s1"> 
+<a name="l102"><span class="ln">102  </span></a> 
+<a name="l103"><span class="ln">103  </span></a> 
+<a name="l104"><span class="ln">104  </span></a>        agencesIdList = </span><span class="s0">new </span><span class="s1">ArrayList&lt;String&gt;()</span><span class="s0">;</span><span class="s1"> 
+<a name="l105"><span class="ln">105  </span></a>        agencesAdList = </span><span class="s0">new </span><span class="s1">ArrayList&lt;String&gt;()</span><span class="s0">;</span><span class="s1"> 
+<a name="l106"><span class="ln">106  </span></a>        agencesAdList.add(</span><span class="s2">&quot;Choose Agency&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+<a name="l107"><span class="ln">107  </span></a>        agencesIdList.add(</span><span class="s2">&quot;0&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+<a name="l108"><span class="ln">108  </span></a> 
+<a name="l109"><span class="ln">109  </span></a> 
+<a name="l110"><span class="ln">110  </span></a>        regSpinner.setOnItemSelectedListener(</span><span class="s0">new </span><span class="s1">AdapterView.OnItemSelectedListener() { 
+<a name="l111"><span class="ln">111  </span></a>            @Override 
+<a name="l112"><span class="ln">112  </span></a>            </span><span class="s0">public void </span><span class="s1">onItemSelected(AdapterView&lt;?&gt; parentView</span><span class="s0">, </span><span class="s1">View selectedItemView</span><span class="s0">, int </span><span class="s1">position</span><span class="s0">, long </span><span class="s1">id) { 
+<a name="l113"><span class="ln">113  </span></a> 
+<a name="l114"><span class="ln">114  </span></a>                region = regSpinner.getSelectedItem().toString()</span><span class="s0">;</span><span class="s1"> 
+<a name="l115"><span class="ln">115  </span></a> 
+<a name="l116"><span class="ln">116  </span></a>                AgencesRequest agencesRequest = </span><span class="s0">new </span><span class="s1">AgencesRequest(region</span><span class="s0">, new </span><span class="s1">Response.Listener&lt;String&gt;() { 
+<a name="l117"><span class="ln">117  </span></a>                    @Override 
+<a name="l118"><span class="ln">118  </span></a>                    </span><span class="s0">public void </span><span class="s1">onResponse(String response) { 
+<a name="l119"><span class="ln">119  </span></a>                        Log.i(</span><span class="s2">&quot;Login Response&quot;</span><span class="s0">, </span><span class="s1">response)</span><span class="s0">;</span><span class="s1"> 
+<a name="l120"><span class="ln">120  </span></a>                        </span><span class="s3">// Response from the server is in the form if a JSON, so we need a JSON Object</span><span class="s1"> 
+<a name="l121"><span class="ln">121  </span></a>                        </span><span class="s0">try </span><span class="s1">{ 
+<a name="l122"><span class="ln">122  </span></a>                            JSONObject jsonObject = </span><span class="s0">new </span><span class="s1">JSONObject(response)</span><span class="s0">;</span><span class="s1"> 
+<a name="l123"><span class="ln">123  </span></a>                            success = jsonObject.getInt(</span><span class="s2">&quot;success&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+<a name="l124"><span class="ln">124  </span></a>                            </span><span class="s0">if </span><span class="s1">(success==</span><span class="s4">1</span><span class="s1">) { 
+<a name="l125"><span class="ln">125  </span></a> 
+<a name="l126"><span class="ln">126  </span></a>                                agences = jsonObject.getJSONArray(</span><span class="s2">&quot;agences&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+<a name="l127"><span class="ln">127  </span></a>                                </span><span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s4">0</span><span class="s0">; </span><span class="s1">i &lt; agences.length()</span><span class="s0">; </span><span class="s1">i++) { 
+<a name="l128"><span class="ln">128  </span></a>                                    JSONObject c = agences.getJSONObject(i)</span><span class="s0">;</span><span class="s1"> 
+<a name="l129"><span class="ln">129  </span></a> 
+<a name="l130"><span class="ln">130  </span></a>                                    String ida = c.getString(</span><span class="s2">&quot;id&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+<a name="l131"><span class="ln">131  </span></a>                                    String name = c.getString(</span><span class="s2">&quot;name&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+<a name="l132"><span class="ln">132  </span></a> 
+<a name="l133"><span class="ln">133  </span></a>                                    agencesIdList.add(ida)</span><span class="s0">;</span><span class="s1"> 
+<a name="l134"><span class="ln">134  </span></a>                                    agencesAdList.add(name)</span><span class="s0">;</span><span class="s1"> 
+<a name="l135"><span class="ln">135  </span></a> 
+<a name="l136"><span class="ln">136  </span></a>                                } 
+<a name="l137"><span class="ln">137  </span></a> 
+<a name="l138"><span class="ln">138  </span></a>                                ArrayAdapter adapterr = </span><span class="s0">new </span><span class="s1">ArrayAdapter&lt;String&gt;(getApplicationContext()</span><span class="s0">, </span><span class="s1">android.R.layout.simple_spinner_dropdown_item</span><span class="s0">, </span><span class="s1">agencesAdList)</span><span class="s0">;</span><span class="s1"> 
+<a name="l139"><span class="ln">139  </span></a>                                agenceSpinner.setAdapter(adapterr)</span><span class="s0">;</span><span class="s1"> 
+<a name="l140"><span class="ln">140  </span></a> 
+<a name="l141"><span class="ln">141  </span></a>                            } </span><span class="s0">else </span><span class="s1">{ 
+<a name="l142"><span class="ln">142  </span></a>                                </span><span class="s0">if</span><span class="s1">(jsonObject.getString(</span><span class="s2">&quot;message&quot;</span><span class="s1">).equals(</span><span class="s2">&quot;No user found&quot;</span><span class="s1">)) 
+<a name="l143"><span class="ln">143  </span></a>                                    Toast.makeText(InscriptionActivity.</span><span class="s0">this, </span><span class="s2">&quot;User Not Found&quot;</span><span class="s0">, </span><span class="s1">Toast.LENGTH_SHORT).show()</span><span class="s0">;</span><span class="s1"> 
+<a name="l144"><span class="ln">144  </span></a>                            } 
+<a name="l145"><span class="ln">145  </span></a>                        } </span><span class="s0">catch </span><span class="s1">(JSONException e) { 
+<a name="l146"><span class="ln">146  </span></a>                            e.printStackTrace()</span><span class="s0">;</span><span class="s1"> 
+<a name="l147"><span class="ln">147  </span></a>                            Toast.makeText(InscriptionActivity.</span><span class="s0">this, </span><span class="s2">&quot;Bad Response From Server&quot;</span><span class="s0">, </span><span class="s1">Toast.LENGTH_SHORT).show()</span><span class="s0">;</span><span class="s1"> 
+<a name="l148"><span class="ln">148  </span></a>                        } 
+<a name="l149"><span class="ln">149  </span></a>                    } 
+<a name="l150"><span class="ln">150  </span></a>                }</span><span class="s0">, new </span><span class="s1">Response.ErrorListener() { 
+<a name="l151"><span class="ln">151  </span></a>                    @Override 
+<a name="l152"><span class="ln">152  </span></a>                    </span><span class="s0">public void </span><span class="s1">onErrorResponse(VolleyError error) { 
+<a name="l153"><span class="ln">153  </span></a>                        </span><span class="s0">if </span><span class="s1">(error </span><span class="s0">instanceof </span><span class="s1">ServerError) 
+<a name="l154"><span class="ln">154  </span></a>                            Toast.makeText(InscriptionActivity.</span><span class="s0">this, </span><span class="s2">&quot;Server Error&quot;</span><span class="s0">, </span><span class="s1">Toast.LENGTH_SHORT).show()</span><span class="s0">;</span><span class="s1"> 
+<a name="l155"><span class="ln">155  </span></a>                        </span><span class="s0">else if </span><span class="s1">(error </span><span class="s0">instanceof </span><span class="s1">TimeoutError) 
+<a name="l156"><span class="ln">156  </span></a>                            Toast.makeText(InscriptionActivity.</span><span class="s0">this, </span><span class="s2">&quot;Connection Timed Out&quot;</span><span class="s0">, </span><span class="s1">Toast.LENGTH_SHORT).show()</span><span class="s0">;</span><span class="s1"> 
+<a name="l157"><span class="ln">157  </span></a>                        </span><span class="s0">else if </span><span class="s1">(error </span><span class="s0">instanceof </span><span class="s1">NetworkError) 
+<a name="l158"><span class="ln">158  </span></a>                            Toast.makeText(InscriptionActivity.</span><span class="s0">this, </span><span class="s2">&quot;Bad Network Connection&quot;</span><span class="s0">, </span><span class="s1">Toast.LENGTH_SHORT).show()</span><span class="s0">;</span><span class="s1"> 
+<a name="l159"><span class="ln">159  </span></a>                    } 
+<a name="l160"><span class="ln">160  </span></a>                })</span><span class="s0">;</span><span class="s1"> 
+<a name="l161"><span class="ln">161  </span></a>                requestQueue.add(agencesRequest)</span><span class="s0">;</span><span class="s1"> 
+<a name="l162"><span class="ln">162  </span></a> 
+<a name="l163"><span class="ln">163  </span></a> 
+<a name="l164"><span class="ln">164  </span></a>            } 
+<a name="l165"><span class="ln">165  </span></a> 
+<a name="l166"><span class="ln">166  </span></a>            @Override 
+<a name="l167"><span class="ln">167  </span></a>            </span><span class="s0">public void </span><span class="s1">onNothingSelected(AdapterView&lt;?&gt; parentView) { 
+<a name="l168"><span class="ln">168  </span></a>                </span><span class="s3">// your code here</span><span class="s1"> 
+<a name="l169"><span class="ln">169  </span></a>            } 
+<a name="l170"><span class="ln">170  </span></a> 
+<a name="l171"><span class="ln">171  </span></a>        })</span><span class="s0">;</span><span class="s1"> 
+<a name="l172"><span class="ln">172  </span></a> 
+<a name="l173"><span class="ln">173  </span></a> 
+<a name="l174"><span class="ln">174  </span></a> 
+<a name="l175"><span class="ln">175  </span></a>        agenceSpinner.setOnItemSelectedListener(</span><span class="s0">new </span><span class="s1">AdapterView.OnItemSelectedListener() { 
+<a name="l176"><span class="ln">176  </span></a>            @Override 
+<a name="l177"><span class="ln">177  </span></a>            </span><span class="s0">public void </span><span class="s1">onItemSelected(AdapterView&lt;?&gt; parentView</span><span class="s0">, </span><span class="s1">View selectedItemView</span><span class="s0">, int </span><span class="s1">position</span><span class="s0">, long </span><span class="s1">id) { 
+<a name="l178"><span class="ln">178  </span></a> 
+<a name="l179"><span class="ln">179  </span></a>                idAG = agencesIdList.get(position).toString()</span><span class="s0">;</span><span class="s1"> 
+<a name="l180"><span class="ln">180  </span></a> 
+<a name="l181"><span class="ln">181  </span></a>            } 
+<a name="l182"><span class="ln">182  </span></a> 
+<a name="l183"><span class="ln">183  </span></a>            @Override 
+<a name="l184"><span class="ln">184  </span></a>            </span><span class="s0">public void </span><span class="s1">onNothingSelected(AdapterView&lt;?&gt; parentView) { 
+<a name="l185"><span class="ln">185  </span></a>                </span><span class="s3">// your code here</span><span class="s1"> 
+<a name="l186"><span class="ln">186  </span></a>            } 
+<a name="l187"><span class="ln">187  </span></a> 
+<a name="l188"><span class="ln">188  </span></a>        })</span><span class="s0">;</span><span class="s1"> 
+<a name="l189"><span class="ln">189  </span></a> 
+<a name="l190"><span class="ln">190  </span></a> 
+<a name="l191"><span class="ln">191  </span></a> 
+<a name="l192"><span class="ln">192  </span></a>        cancel.setOnClickListener(</span><span class="s0">new </span><span class="s1">View.OnClickListener() { 
+<a name="l193"><span class="ln">193  </span></a>            </span><span class="s0">public void </span><span class="s1">onClick(View v) 
+<a name="l194"><span class="ln">194  </span></a>            { 
+<a name="l195"><span class="ln">195  </span></a>                fname.setText(</span><span class="s2">&quot;&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+<a name="l196"><span class="ln">196  </span></a>                lname.setText(</span><span class="s2">&quot;&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+<a name="l197"><span class="ln">197  </span></a>                mail.setText(</span><span class="s2">&quot;&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+<a name="l198"><span class="ln">198  </span></a>                pass.setText(</span><span class="s2">&quot;&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+<a name="l199"><span class="ln">199  </span></a>                confpass.setText(</span><span class="s2">&quot;&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+<a name="l200"><span class="ln">200  </span></a>                regSpinner.setSelection(</span><span class="s4">0</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+<a name="l201"><span class="ln">201  </span></a>            } 
+<a name="l202"><span class="ln">202  </span></a>        })</span><span class="s0">;</span><span class="s1"> 
+<a name="l203"><span class="ln">203  </span></a> 
+<a name="l204"><span class="ln">204  </span></a> 
+<a name="l205"><span class="ln">205  </span></a>        ok.setOnClickListener(</span><span class="s0">new </span><span class="s1">View.OnClickListener() { 
+<a name="l206"><span class="ln">206  </span></a>            </span><span class="s0">public void </span><span class="s1">onClick(View v) 
+<a name="l207"><span class="ln">207  </span></a>            { 
+<a name="l208"><span class="ln">208  </span></a>                firstname = fname.getText().toString()</span><span class="s0">;</span><span class="s1"> 
+<a name="l209"><span class="ln">209  </span></a>                lastname = lname.getText().toString()</span><span class="s0">;</span><span class="s1"> 
+<a name="l210"><span class="ln">210  </span></a>                email = mail.getText().toString()</span><span class="s0">;</span><span class="s1"> 
+<a name="l211"><span class="ln">211  </span></a>                password = pass.getText().toString()</span><span class="s0">;</span><span class="s1"> 
+<a name="l212"><span class="ln">212  </span></a>                confirmpassword = confpass.getText().toString()</span><span class="s0">;</span><span class="s1"> 
+<a name="l213"><span class="ln">213  </span></a>                region = regSpinner.getSelectedItem().toString()</span><span class="s0">;</span><span class="s1"> 
+<a name="l214"><span class="ln">214  </span></a> 
+<a name="l215"><span class="ln">215  </span></a>                </span><span class="s0">if</span><span class="s1">(firstname.equals(</span><span class="s2">&quot;&quot;</span><span class="s1">) || lastname.equals(</span><span class="s2">&quot;&quot;</span><span class="s1">) || email.equals(</span><span class="s2">&quot;&quot;</span><span class="s1">) || password.equals(</span><span class="s2">&quot;&quot;</span><span class="s1">) || confirmpassword.equals(</span><span class="s2">&quot;&quot;</span><span class="s1">) 
+<a name="l216"><span class="ln">216  </span></a>                        || region.equals(</span><span class="s2">&quot;Select your region&quot;</span><span class="s1">) || idAG.equals(</span><span class="s2">&quot;0&quot;</span><span class="s1">) ){ 
+<a name="l217"><span class="ln">217  </span></a>                    Toast.makeText(InscriptionActivity.</span><span class="s0">this, </span><span class="s2">&quot;Please make sure to fill all your credentials!&quot;</span><span class="s0">, </span><span class="s1">Toast.LENGTH_SHORT).show()</span><span class="s0">;</span><span class="s1"> 
+<a name="l218"><span class="ln">218  </span></a>                }</span><span class="s0">else if </span><span class="s1">(!password.equals(confirmpassword)){ 
+<a name="l219"><span class="ln">219  </span></a>                    Toast.makeText(InscriptionActivity.</span><span class="s0">this, </span><span class="s2">&quot;Your password doesn't match!&quot;</span><span class="s0">, </span><span class="s1">Toast.LENGTH_SHORT).show()</span><span class="s0">;</span><span class="s1"> 
+<a name="l220"><span class="ln">220  </span></a>                    pass.setText(</span><span class="s2">&quot;&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+<a name="l221"><span class="ln">221  </span></a>                    confpass.setText(</span><span class="s2">&quot;&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+<a name="l222"><span class="ln">222  </span></a>                }</span><span class="s0">else if</span><span class="s1">(password.length()&lt;</span><span class="s4">8</span><span class="s1">) { 
+<a name="l223"><span class="ln">223  </span></a>                    Toast.makeText(InscriptionActivity.</span><span class="s0">this, </span><span class="s2">&quot;Your password lenght must be 8 characters at least!&quot;</span><span class="s0">, </span><span class="s1">Toast.LENGTH_SHORT).show()</span><span class="s0">;</span><span class="s1"> 
+<a name="l224"><span class="ln">224  </span></a>                    pass.setText(</span><span class="s2">&quot;&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+<a name="l225"><span class="ln">225  </span></a>                    confpass.setText(</span><span class="s2">&quot;&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+<a name="l226"><span class="ln">226  </span></a>                }</span><span class="s0">else if</span><span class="s1">(!isValidEmail(email)) { 
+<a name="l227"><span class="ln">227  </span></a>                    Toast.makeText(InscriptionActivity.</span><span class="s0">this, </span><span class="s2">&quot;Please enter a valid E-mail!&quot;</span><span class="s0">, </span><span class="s1">Toast.LENGTH_SHORT).show()</span><span class="s0">;</span><span class="s1"> 
+<a name="l228"><span class="ln">228  </span></a>                    mail.setText(</span><span class="s2">&quot;&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+<a name="l229"><span class="ln">229  </span></a>                }</span><span class="s0">else if</span><span class="s1">(!password.matches(</span><span class="s2">&quot;.*([a-zA-Z].*[0-9]|[0-9].*[a-zA-Z]).*&quot;</span><span class="s1">) ) { 
+<a name="l230"><span class="ln">230  </span></a>                    Toast.makeText(InscriptionActivity.</span><span class="s0">this, </span><span class="s2">&quot;Your password must contains characters and numbers!&quot;</span><span class="s0">, </span><span class="s1">Toast.LENGTH_SHORT).show()</span><span class="s0">;</span><span class="s1"> 
+<a name="l231"><span class="ln">231  </span></a>                    pass.setText(</span><span class="s2">&quot;&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+<a name="l232"><span class="ln">232  </span></a>                    confpass.setText(</span><span class="s2">&quot;&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+<a name="l233"><span class="ln">233  </span></a>                }</span><span class="s0">else</span><span class="s1">{ 
+<a name="l234"><span class="ln">234  </span></a>                    </span><span class="s0">final </span><span class="s1">ProgressDialog progressDialog = </span><span class="s0">new </span><span class="s1">ProgressDialog(InscriptionActivity.</span><span class="s0">this</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+<a name="l235"><span class="ln">235  </span></a>                    progressDialog.setTitle(</span><span class="s2">&quot;Please Wait&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+<a name="l236"><span class="ln">236  </span></a>                    progressDialog.setMessage(</span><span class="s2">&quot;Registring &quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+<a name="l237"><span class="ln">237  </span></a>                    progressDialog.setCancelable(</span><span class="s0">false</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+<a name="l238"><span class="ln">238  </span></a>                    progressDialog.show()</span><span class="s0">;</span><span class="s1"> 
+<a name="l239"><span class="ln">239  </span></a> 
+<a name="l240"><span class="ln">240  </span></a>                    InscriptionRequest inscriptionRequest = </span><span class="s0">new </span><span class="s1">InscriptionRequest(firstname</span><span class="s0">, </span><span class="s1">password</span><span class="s0">, </span><span class="s1">lastname</span><span class="s0">, </span><span class="s1">email</span><span class="s0">, </span><span class="s1">region</span><span class="s0">, </span><span class="s1">idAG</span><span class="s0">,  new </span><span class="s1">Response.Listener&lt;String&gt;() { 
+<a name="l241"><span class="ln">241  </span></a>                        @Override 
+<a name="l242"><span class="ln">242  </span></a>                        </span><span class="s0">public void </span><span class="s1">onResponse(String response) { 
+<a name="l243"><span class="ln">243  </span></a>                            Log.i(</span><span class="s2">&quot;********************&quot;</span><span class="s0">, </span><span class="s1">response)</span><span class="s0">;</span><span class="s1"> 
+<a name="l244"><span class="ln">244  </span></a>                            progressDialog.dismiss()</span><span class="s0">;</span><span class="s1"> 
+<a name="l245"><span class="ln">245  </span></a>                            </span><span class="s3">// Response from the server is in the form if a JSON, so we need a JSON Object</span><span class="s1"> 
+<a name="l246"><span class="ln">246  </span></a>                            </span><span class="s0">try </span><span class="s1">{ 
+<a name="l247"><span class="ln">247  </span></a>                                JSONObject jsonObject = </span><span class="s0">new </span><span class="s1">JSONObject(response)</span><span class="s0">;</span><span class="s1"> 
+<a name="l248"><span class="ln">248  </span></a>                                success = jsonObject.getInt(</span><span class="s2">&quot;success&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+<a name="l249"><span class="ln">249  </span></a>                                </span><span class="s0">if </span><span class="s1">(success==</span><span class="s4">1</span><span class="s1">) { 
+<a name="l250"><span class="ln">250  </span></a>                                    Intent loginSuccess = </span><span class="s0">new </span><span class="s1">Intent(InscriptionActivity.</span><span class="s0">this, </span><span class="s1">LogAsActivity.</span><span class="s0">class</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+<a name="l251"><span class="ln">251  </span></a>                                    startActivity(loginSuccess)</span><span class="s0">;</span><span class="s1"> 
+<a name="l252"><span class="ln">252  </span></a> 
+<a name="l253"><span class="ln">253  </span></a>                                } </span><span class="s0">else </span><span class="s1">{ 
+<a name="l254"><span class="ln">254  </span></a>                                    </span><span class="s0">if</span><span class="s1">(jsonObject.getString(</span><span class="s2">&quot;message&quot;</span><span class="s1">).equals(</span><span class="s2">&quot;No user found&quot;</span><span class="s1">)) 
+<a name="l255"><span class="ln">255  </span></a>                                        Toast.makeText(InscriptionActivity.</span><span class="s0">this, </span><span class="s2">&quot;User Not Found&quot;</span><span class="s0">, </span><span class="s1">Toast.LENGTH_SHORT).show()</span><span class="s0">;</span><span class="s1"> 
+<a name="l256"><span class="ln">256  </span></a>                                } 
+<a name="l257"><span class="ln">257  </span></a>                            } </span><span class="s0">catch </span><span class="s1">(JSONException e) { 
+<a name="l258"><span class="ln">258  </span></a>                                e.printStackTrace()</span><span class="s0">;</span><span class="s1"> 
+<a name="l259"><span class="ln">259  </span></a>                                Toast.makeText(InscriptionActivity.</span><span class="s0">this, </span><span class="s2">&quot;Bad Response From Server&quot;</span><span class="s0">, </span><span class="s1">Toast.LENGTH_SHORT).show()</span><span class="s0">;</span><span class="s1"> 
+<a name="l260"><span class="ln">260  </span></a>                            } 
+<a name="l261"><span class="ln">261  </span></a>                        } 
+<a name="l262"><span class="ln">262  </span></a>                    }</span><span class="s0">, new </span><span class="s1">Response.ErrorListener() { 
+<a name="l263"><span class="ln">263  </span></a>                        @Override 
+<a name="l264"><span class="ln">264  </span></a>                        </span><span class="s0">public void </span><span class="s1">onErrorResponse(VolleyError error) { 
+<a name="l265"><span class="ln">265  </span></a>                            progressDialog.dismiss()</span><span class="s0">;</span><span class="s1"> 
+<a name="l266"><span class="ln">266  </span></a>                            </span><span class="s0">if </span><span class="s1">(error </span><span class="s0">instanceof </span><span class="s1">ServerError) 
+<a name="l267"><span class="ln">267  </span></a>                                Toast.makeText(InscriptionActivity.</span><span class="s0">this, </span><span class="s2">&quot;Server Error&quot;</span><span class="s0">, </span><span class="s1">Toast.LENGTH_SHORT).show()</span><span class="s0">;</span><span class="s1"> 
+<a name="l268"><span class="ln">268  </span></a>                            </span><span class="s0">else if </span><span class="s1">(error </span><span class="s0">instanceof </span><span class="s1">TimeoutError) 
+<a name="l269"><span class="ln">269  </span></a>                                Toast.makeText(InscriptionActivity.</span><span class="s0">this, </span><span class="s2">&quot;Connection Timed Out&quot;</span><span class="s0">, </span><span class="s1">Toast.LENGTH_SHORT).show()</span><span class="s0">;</span><span class="s1"> 
+<a name="l270"><span class="ln">270  </span></a>                            </span><span class="s0">else if </span><span class="s1">(error </span><span class="s0">instanceof </span><span class="s1">NetworkError) 
+<a name="l271"><span class="ln">271  </span></a>                                Toast.makeText(InscriptionActivity.</span><span class="s0">this, </span><span class="s2">&quot;Bad Network Connection&quot;</span><span class="s0">, </span><span class="s1">Toast.LENGTH_SHORT).show()</span><span class="s0">;</span><span class="s1"> 
+<a name="l272"><span class="ln">272  </span></a>                        } 
+<a name="l273"><span class="ln">273  </span></a>                    })</span><span class="s0">;</span><span class="s1"> 
+<a name="l274"><span class="ln">274  </span></a>                    requestQueue.add(inscriptionRequest)</span><span class="s0">;</span><span class="s1"> 
+<a name="l275"><span class="ln">275  </span></a>                } 
+<a name="l276"><span class="ln">276  </span></a>            } 
+<a name="l277"><span class="ln">277  </span></a>        })</span><span class="s0">;</span><span class="s1"> 
+<a name="l278"><span class="ln">278  </span></a>    } 
+<a name="l279"><span class="ln">279  </span></a> 
+<a name="l280"><span class="ln">280  </span></a>    </span><span class="s0">private static boolean </span><span class="s1">isValidEmail(String email) { 
+<a name="l281"><span class="ln">281  </span></a>        </span><span class="s0">return </span><span class="s1">!TextUtils.isEmpty(email) &amp;&amp; android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()</span><span class="s0">;</span><span class="s1"> 
+<a name="l282"><span class="ln">282  </span></a>    } 
+<a name="l283"><span class="ln">283  </span></a>} 
+<a name="l284"><span class="ln">284  </span></a></span></pre>
+</body>
+</html>

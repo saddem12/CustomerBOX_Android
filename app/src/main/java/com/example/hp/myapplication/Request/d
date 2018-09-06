@@ -1,0 +1,3 @@
+private static final String APP_KEY = "cdd8643a-c4ab-4806-b4b2-35bd1cc74cc0";
+private static final String APP_SECRET = "4VEa5MbyjUGiq+xIFJXWyQ==";
+private static final String ENVIRONMENT = "clientapi.sinch.com";
